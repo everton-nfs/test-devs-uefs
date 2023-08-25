@@ -59,4 +59,12 @@ class UserController extends Controller
         return response()->json(['message' => 'User deleted successfully'], 200);
     }
 
+    public function getAllUsersView()
+    {
+
+        $users = User::paginate(10);
+        return view('index', compact('users'));
+    }
+
+
 }
