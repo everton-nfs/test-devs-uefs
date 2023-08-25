@@ -19,6 +19,18 @@ class UserController extends Controller
         $users = User::with('posts')->paginate(10);
         return response()->json($users->items());
     }
+
+    public function getAllUsersAndPostsAndTags()
+    {
+        $users = User::with('posts.tags')->paginate(10);
+        return response()->json($users->items());
+    }
+
+    public function getUserByIdWithPostsAndTags($id)
+    {
+        $user = User::with('posts.tags')->findOrFail($id);
+        return response()->json($user);
+    }
     
     public function getUserById($id)
     {
@@ -43,7 +55,8 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return response()->json(null, 204);
+    
+        return response()->json(['message' => 'User deleted successfully'], 200);
     }
 
 }
