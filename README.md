@@ -3,8 +3,8 @@
 Nescessário instalar 
 
 - `composer` gestor de pacotes do php 
-- `php 8.1` ou superior
-- Mysql ou PostgreSQL
+- `php 8.2.9`
+- Mysql
 
 Instalar as dependências do php
 
@@ -20,81 +20,37 @@ Crie um banco de dados e configure no .env para rodar as migrations da aplicaç�
 `php artisan migrate`
 
 
-## TESTE
+## MiniBlog API Laravel
 
-Crie um modelo entidade ralação onde:
-
-- O usuário (users) tem diferentes postagens (posts)
-- As postagens (posts) tem multiples palavras-chave tags
-
-```mermaid
----
-title: DER
----
-erDiagram
-    user ||--o{ post : "has many"
-    post ||--o{ tag : "has multiple"
-
-```
+Este é um exemplo de API Laravel para um miniblog. Ele fornece endpoints para gerenciar usuários, postagens e tags.
 
 
-Os posts tem os seguintes campos:
+## Rotas
 
-- id
-- title
-- description
-- created_at
-- updated_at
+A API fornece as seguintes rotas:
 
-As tags tem 
+#### Users
+ - `GET /users`: Listar usuários.
+ - `GET /users/posts`: Listar usuários com suas postagens.
+ - `GET /users/posts`: Listar usuários com postagens e tags.
+ - `GET /users/{id}`: Exibir um usuário por id.
+ - `GET /users/{id}/posts-tags`: Pegar usuário por ID com postagens e tags.
+ - `POST /users`: Criar um novo usuário.
+ - `POST /users`: Atualizar um usuário.
+ - `DELETE /users/{id}`: Deletar um usuário.
 
-- id
-- name
+#### Posts
+ - `GET /posts`: Listar postagens.
+ - `GET /posts/{id}`: Exibir uma postagem por id.
+ - `POST /posts`: Criar uma nova postagem.
+ - `PUT /posts/{id}`: Atualizar uma postagem.
+ - `DELETE /posts/{id}`: Deletar uma postagem.
 
+#### Tags
+ - `GET /tags`: Listar tags.
+ - `GET /tags/{id}`: Exibir uma tag por id.
+ - `POST /tags`: Criar uma nova tag.
+ - `PUT /tags/{id}`: Atualizar uma tag.
+ - `DELETE /tags/{id}`: Deletar uma tag.
+ - `POST /tags/{tag_id}/posts/{post_id}`: Associar uma tag a uma postagem.
 
-> Lembre que tem comandos para criar as migrations, modelos e controllers `php artisan make:model Todo -mc`
-
-> Lembre que nas migrations os campos created_at e updated_at são gerados nas migrations `$table->timestamps();`
-
-
-## Endpoints
-
-Finalmente crie os endpoints com os verbos HTTP (get, post, put, delete) das seguintes tabelas
-
-#### CRUD (create, read, update e delete) da tabela usuários (users)
- - Rota GET `/users` para lista paginada de usuários
- - Rota GET `/users/{id}` listar um usuário por id
- - Rota POST `/users` salvar um novo usuário
- - Rota PUT `/users/{id}` atualizar um usuário
- - Rota DELETE `/users/{id}` deletar um usuário
-
-
-#### CRUD (create, read, update e delete) da tabela postagens (posts)
- - Rota GET `/posts` para listar paginada de postagens
- - Rota GET `/posts/{id}` listar uma postagem por id
- - Rota POST `/posts` salvar um novo uma postagem
- - Rota PUT `/posts/{id}` atualizar uma postagem
- - Rota DELETE `/posts/{id}` deletar uma postagem
- - Rota POST `/posts/{id}/tags` associar tags a posts 
-
-### CRUD (create, read, update e delete) da tabela palavras-chave (tags)
- - Rota GET `/tags` para listar paginada de tags
- - Rota GET `/tags/{id}` listar uma tag por id
- - Rota POST `/tags` salvar um novo uma tag
- - Rota PUT `/tags/{id}` atualizar uma tag
- - Rota DELETE `/tags/{id}` deletar uma tag
- 
- > As rotas da api podem ser acessadas com o prefixo `api` por exemplo: `/api/posts`
- 
- > Lembre que nos métodos de PUT vc precisa enviar uma requisição POST com o parametro `_method = PUT` e no método DELETE deve passar o parâmetro `_method = DELETE` para poder testar no postman ou cliente para interagir com a API
- 
- 
- 
-## Serão avaliados
-
-- Uso do framework Laravel 
-- Conhecimento sobre modelagem de dados
-- Criação de API restfull 
-
-
-Sucesso e bom teste!
